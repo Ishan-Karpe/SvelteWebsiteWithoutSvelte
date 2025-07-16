@@ -20,6 +20,7 @@
             font-family: 'Inter', sans-serif;
         }
 
+        /*Proses style text content like code blocks and paragraphs*/
         .prose code {
             background-color: #2d3748;
             color: #e2e8f0;
@@ -56,6 +57,7 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+        /*Keyframes define animations with css properties with properties like the spinner*/
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -100,7 +102,62 @@
 
         <!--Main Content-->
         <main class='mt-12 mb-24'>
-            <!--TODO: ADD MORE CODE-->
+            <!--Hero Section-->
+            <section class="text-center mb-16">
+                <h2 class="'text-4x1 md:text-5x1 font-extrabold text-white mb-4">A New Era of Reactivity</h2>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                    Svelte 5 introduces Runes to handle reactivity. This page is enhanced with AI to provide explanations.
+                </p>
+            </section>
+
+            <!--Content Grid-->
+            <div class='prose prose-invert max-w-none grid gap-12 lg:gap-16'>
+                <!--state rune-->
+                <section id="state" class="scroll mt-20">
+                    <h3 class="text-3x1 font-bold text-white">The Foundation: `$state`</h3>
+                    <p>The <code>$state</code> rune is the base of the new reactivity system. It's how you declare a piece of reactive state. Any time you assign a new value to a <code>$state</code> variable, Svelte will know to update any parts of your app that depend on it.</p>
+                    <pre><code class="language-javascript" data-code-id="state">// App.svelte
+
+// no need to import in svelte 5
+
+let count = $state(0);
+
+function increment() {
+    count++;
+}</code></pre>
+                        <button class="explain-code-btn mt-4 inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition">
+                            ✨ Explain this code simply
+                        </button>
+                </section>
+
+                <!--derived rune-->
+                <section id="derived" class="scroll-mt-20">
+                    <h3 class="text-3x1 font-bold text-white">Calculating Values: `$derived`</h3>
+                    <p>Often, you have values that depend on other state. In Svelte 4 you'd use <code>$: doubled = count * 2</code>. In Svelte 5, you use the <code>$derived</code> rune. It creates a new reactive value that re-calculates whenever its dependencies change.</p>
+                    <pre><code class='language-javascript'data-code-id='derived'>//App.svelte
+let count = $state(0);
+let doubled = $derived(count * 2);</code></pre>
+
+                    <button class="explain-code-btn mt-4 inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">✨ Explain this code simply</button>
+                </section>
+
+                <!--effect rune-->
+                <section id="effect" class="scroll-mt-20">
+                    <h3 class="text-3x1 font-bold text-white">Running Side Effects: `$effect`</h3>
+                    <p>The <code>$effect</code> rune is the replacement for the reactive <code>$:</code> statement when you need to run code in response to a state change, but not to create a new value. This is perfect for things like logging or interacting with the DOM (Document Object Model = HTML tree with nodes).</p>
+                    <pre><code class="language-javascript" data-code-id="effect">//App.svelte
+let count = $state(0);
+
+$effect(() => {
+    // This code runs whenever 'count' increments
+    console.log(`The new count is ${count}`);
+    document.title = `Count is ${count}`;
+});</code></pre>
+                    <button class="explain-code-btn mt-4 inline-flex items-center gap-2 px-4 py-2 bg-orange-500 text-white font-semibold rounded-lg hover:bg-green-600 transition">
+                        ✨ Explain this code simply
+                    </button>
+                </section>
+            </div>
         </main>
     </div>
 
