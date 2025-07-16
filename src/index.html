@@ -161,8 +161,8 @@ $effect(() => {
         </main>
         <!--FAQ-->
         <section id="faq" class="mt-24 scroll mt-20">
-            <h3 class="text-3x1 font-bold text-center text-white mb-8">Frequently Asked Questions</h3>
-            <div class="max-w-3x1 mx-auto space-y-4" id="faq-container">
+            <h3 class="text-3xl font-bold text-center text-white mb-8">Frequently Asked Questions</h3>
+            <div class="max-w-3xl mx-auto space-y-5" id="faq-container">
                 <!--Item 1-->
                 <div class="group border border-gray-700 rounded-lg">
                     <button class="faq-question flex justify-between items-center w-full p-5 text-left font-semibold text-gray-100 hover:bg-gray-800">
@@ -171,35 +171,34 @@ $effect(() => {
                     </button>
                     <div class="faq-answer hidden p-5 pt-0">
                         <div class="answer-content text-gray-400"></div>
+                    </div>
+                </div>
+                <!--Item 2-->
+                <div class="group border border-gray-700 rounded-lg">
+                    <button class="faq-question flex justify-between items-center w-full p-5 text-left font-semibold text-gray-100 hover:bg-gray-800">
+                        <span data-prompt="As a beginner, should I rewrite all my old Svelte code to use Runes?">Do I have to rewrite all my old Svelte code?</span>
+                        <svg class="arrow-down w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-answer hidden p-5 pt-0">
+                        <div class="answer-content text-gray-400"></div>
+                    </div>
+                </div>
+                <!--Item 3-->
+                <div class="group border border-gray-700 rounded-lg">
+                    <button class="faq-question flex justify-between items-center w-full p-5 text-left font-semibold text-gray-100 hover:bg-gray-800">
+                        <span data-prompt="With Svelte Runes, is the dollar sign ($) for stores going away? Explain simply.">Is `$` for stores going away?</span>
+                        <svg class="arrow-down w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-answer hidden p-5 pt-0">
+                        <div class="answer-content text-gray-400"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!--Item 2-->
-        <div class="'group border border-gray-700 rounded-lg">
-            <button class="faq-question flex justify-between items-center w-full p-5 text-left font-semibold text-gray-100 hover:bg-gray-800">
-                    <span data-prompt="As a beginner, should I rewrite all my old Svelte code to use Runes?">Do I have to rewrite all my old Svelte code?</span>
-                    <svg class="arrow-down w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-            <div class='faq-answer hidden p-5 pt-0'>
-                <div class='answer-content text-gray-400'></div>
-            </div>
-        </div>
-        <!--Item 3-->
-        <div class="group border border-gray-700 rounded-lg">
-            <button class="faq-question flex justify-between items-center w-full p-5 text-left font-semibold text-gray-100 hover:bg-gray-800">
-               <span data-prompt="With Svelte Runes, is the dollar sign ($) for stores going away? Explain simply.">Is `$` for stores going away?</span>
-                <svg class="arrow-down w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-            <div class="faq-answer hidden p-5 pt-0">
-               <div class="answer-content text-gray-400"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!--Footer-->
     <footer class="border-t border-gray-700 mt-16">
-        <div class='container mx-auto py-8 text-center text-gray-400'>
+        <div class="container mx-auto py-8 text-center text-gray-400">
             <p>&copy; 2025 Svelte Runes Website by Ishan Karpe. Explanations powered by AI.</p>
             <p class="text-sm mt-2">Built with HTML, Tailwind CSS, and a tiny bit of JavaScript.</p>
         </div>
@@ -266,9 +265,10 @@ $effect(() => {
             if (result.candidates && result.candidates.length > 0 &&
                 result.candidates[0].content && result.candidates[0].content.parts &&
                 result.candidates[0].content.parts.length > 0) {
-                // Basic markdown-to-html conversion
+                // Enhanced markdown-to-html conversion
                 let text = result.candidates[0].content.parts[0].text;
                 text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+                text = text.replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 text-orange-400 bg-gray-800 rounded">$1</code>'); // Inline code
                 text = text.replace(/\n/g, '<br>'); // Newlines
                 return text;
             } else {
@@ -315,7 +315,8 @@ $effect(() => {
             // fetch content if opening and not already fetched
             if (!isOpen && !answerContent.innerHTML.trim()) {
                 answerContent.innerHTML = '<div class="flex items-center gap-2"><div class="loader"></div><span>Generating answer...</span></div>';
-                const prompt = questionButton.querySelector('span').dataset.prompt;
+                const basePrompt = questionButton.querySelector('span').dataset.prompt;
+                const prompt = `${basePrompt} Please answer in exactly 2 concise sentences. Use inline code formatting with backticks for technical terms.`;
                 const explanation = await generateGeminiContent(prompt);
                 answerContent.innerHTML = explanation;
             }
