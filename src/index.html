@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--The first part is including all the CSS styling for this project-->
+<html lang='en' class="scroll-smooth dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Understanding Svelte 5 Runes with AI</title>
+    
+    <!--introduce tailwind CDN-->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!--custom CSS for animations and small tweaks -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .prose code {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 6px;
+        }
+        .prose pre {
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .prose pre code {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+        }
+
+        .group .arrow-down {
+            transition: transform 0.2s ease-in-out;
+        }
+        .group[data-open='true'] .arrow-down {
+            transform: rotate(180deg);
+        }
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4a5568;
+            border-top: 2px solid #f97316;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #ai-modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #ai-modal-panel {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!--TODO: Add future code-->
+</body>
+</html>
