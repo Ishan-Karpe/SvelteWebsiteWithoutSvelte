@@ -236,5 +236,50 @@ $effect(() => {
     </div>
 </div>
 
+<!--AI HELPER-->
+<script>
+    async function generateGeminiContent(prompt) {
+        // Insert your Google AI API KEY BELOW, get at https://aistudio.google.com/app/apikey
+        const apiKey = "AIzaSyCGPVB7IAbNjmr68IpdoBdkrumzulbHaZA"
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+        const payload = {
+            contents: [{
+                role: "user",
+                parts: [{text: prompt}]
+            }]
+        }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                // Basic markdown-to-html conversion
+                let text = result.candidates[0].content.parts[0].text;
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+                text = text.replace(/\n/g, '<br>'); // Newlines
+                return text;
+            } else {
+                return "Sorry, I couldn't generate an explanation right now.";
+            }  
+        } catch (error) {
+            console.error('Gemini API call failed:', error)
+            return 'An error occurred while fetching the explanation.'
+        }
+    }
+</script>
+
 </body>
 </html>
