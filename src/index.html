@@ -104,9 +104,9 @@
         <main class='mt-12 mb-24'>
             <!--Hero Section-->
             <section class="text-center mb-16">
-                <h2 class="'text-4x1 md:text-5x1 font-extrabold text-white mb-4">A New Era of Reactivity</h2>
+                <h1 class="text-6xl md:text-7xl font-extrabold text-white mb-4">A New Era of Reactivity</h1>
                 <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
-                    Svelte 5 introduces Runes to handle reactivity. This page is enhanced with AI to provide explanations.
+                    Svelte 5 introduces Runes, a powerful new way to handle reactivity. This page is enhanced with AI to provide simple explanations.
                 </p>
             </section>
 
@@ -114,7 +114,7 @@
             <div class='prose prose-invert max-w-none grid gap-12 lg:gap-16'>
                 <!--state rune-->
                 <section id="state" class="scroll mt-20">
-                    <h3 class="text-3x1 font-bold text-white">The Foundation: `$state`</h3>
+                    <h3 class="text-3xl font-bold text-white">The Foundation: `$state`</h3>
                     <p>The <code>$state</code> rune is the base of the new reactivity system. It's how you declare a piece of reactive state. Any time you assign a new value to a <code>$state</code> variable, Svelte will know to update any parts of your app that depend on it.</p>
                     <pre><code class="language-javascript" data-code-id="state">// App.svelte
 
@@ -132,7 +132,7 @@ function increment() {
 
                 <!--derived rune-->
                 <section id="derived" class="scroll-mt-20">
-                    <h3 class="text-3x1 font-bold text-white">Calculating Values: `$derived`</h3>
+                    <h3 class="text-3xl font-bold text-white">Calculating Values: `$derived`</h3>
                     <p>Often, you have values that depend on other state. In Svelte 4 you'd use <code>$: doubled = count * 2</code>. In Svelte 5, you use the <code>$derived</code> rune. It creates a new reactive value that re-calculates whenever its dependencies change.</p>
                     <pre><code class='language-javascript'data-code-id='derived'>//App.svelte
 let count = $state(0);
@@ -143,7 +143,7 @@ let doubled = $derived(count * 2);</code></pre>
 
                 <!--effect rune-->
                 <section id="effect" class="scroll-mt-20">
-                    <h3 class="text-3x1 font-bold text-white">Running Side Effects: `$effect`</h3>
+                    <h3 class="text-3xl font-bold text-white">Running Side Effects: `$effect`</h3>
                     <p>The <code>$effect</code> rune is the replacement for the reactive <code>$:</code> statement when you need to run code in response to a state change, but not to create a new value. This is perfect for things like logging or interacting with the DOM (Document Object Model = HTML tree with nodes).</p>
                     <pre><code class="language-javascript" data-code-id="effect">//App.svelte
 let count = $state(0);
@@ -198,7 +198,43 @@ $effect(() => {
     </section>
 
     <!--Footer-->
-    
+    <footer class="border-t border-gray-700 mt-16">
+        <div class='container mx-auto py-8 text-center text-gray-400'>
+            <p>&copy; 2025 Svelte Runes Website by Ishan Karpe. Explanations powered by AI.</p>
+            <p class="text-sm mt-2">Built with HTML, Tailwind CSS, and a tiny bit of JavaScript.</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- AI Explanation Modal -->
+<div id="ai-modal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="ai-modal-backdrop" class="fixed inset-0 bg-gray-900 bg-opacity-80 transition-opacity opacity-0"></div>
+    <div class="flex items-center justify-center min-h-screen p-4 text-center">
+        <div id="ai-modal-panel" class="relative bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 sm:my-8 sm:max-w-lg sm:w-full">
+            <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-900 sm:mx-0 sm:h-10 sm:w-10">
+                        <span class="text-xl">✨</span>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-white" id="modal-title">AI Explanation</h3>
+                        <div class="mt-2">
+                            <div id="modal-content" class="text-sm text-gray-400 min-h-[50px]">
+                                <!-- AI content will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-800 border-t border-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" id="close-modal-btn" class="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-500 text-base font-medium text-white hover:bg-orange-600 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Got it!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
