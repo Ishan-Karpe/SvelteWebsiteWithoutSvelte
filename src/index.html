@@ -279,6 +279,48 @@ $effect(() => {
             return 'An error occurred while fetching the explanation.'
         }
     }
+
+    // UI Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        // for mobile
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        //AI for FAQ
+        const faqContainer = document.getElementById('faq-container');
+        faqContainer.addEventListener('click', async (e) => {
+            const questionButton = e.target.closest('.faq-question');
+            if (!questionButton) return;
+
+            const group = questionButton.parentElement;
+            const answerWrapper = questionButton.nextElementSibling;
+            const answerContent = answerWrapper.querySelector('.answer-content');
+            const isOpen = group.getAttribute('data-open') === 'true';
+
+            //close all open FAQs
+            faqContainer.querySelectorAll('.group').forEach(otherGroup => {
+                if (otherGroup !== group && otherGroup.getAttribute('data-open') === 'true') {
+                    otherGroup.setAttribute('data-open', 'false');
+                    otherGroup.querySelector('.faq-answer').classList.add('hidden');
+                }
+            });
+
+            //toggle current
+            group.setAttribute('data-open', !isOpen);
+            answerWrapper.classList.toggle('hidden');
+
+            // fetch content if opening and not already fetched
+            if (!isOpen && !answerContent.innerHTML.trim()) {
+                answerContent.innerHTML = '<div class="flex items-center gap-2"><div class="loader"></div><span>Generating answer...</span></div>';
+                const prompt = questionButton.querySelector('span').dataset.prompt;
+                const explanation = await generateGeminiContent(prompt);
+                answerContent.innerHTML = explanation;
+            }
+        });
+    })
 </script>
 
 </body>
