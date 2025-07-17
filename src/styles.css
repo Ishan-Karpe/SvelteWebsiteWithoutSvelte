@@ -1,0 +1,56 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+/*Proses style text content like code blocks and paragraphs*/
+.prose code {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  border-radius: 6px;
+}
+.prose pre {
+  background-color: #1a202c;
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+}
+
+.group .arrow-down {
+  transition: transform 0.2s ease-in-out;
+}
+.group[data-open="true"] .arrow-down {
+  transform: rotate(180deg);
+}
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4a5568;
+  border-top: 2px solid #f97316;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+/*Keyframes define animations with css properties with properties like the spinner*/
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#ai-modal-backdrop {
+  transition: opacity 0.3s ease-in-out;
+}
+#ai-modal-panel {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
