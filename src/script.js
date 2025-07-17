@@ -20,9 +20,7 @@ async function generateGeminiContent(prompt) {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `API request failed with status ${response.status}`
-      );
+      throw new Error(`API request failed with status ${response.status}`);
     }
 
     const result = await response.json();
@@ -91,8 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isOpen && !answerContent.innerHTML.trim()) {
       answerContent.innerHTML =
         '<div class="flex items-center gap-2"><div class="loader"></div><span>Generating answer...</span></div>';
-      const basePrompt =
-        questionButton.querySelector("span").dataset.prompt;
+      const basePrompt = questionButton.querySelector("span").dataset.prompt;
       const prompt = `${basePrompt} Please answer in exactly 2 concise sentences. Use inline code formatting with backticks for technical terms.`;
       const explanation = await generateGeminiContent(prompt);
       answerContent.innerHTML = explanation;
@@ -117,21 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "sm:scale-95"
       );
       modalBackdrop.classList.add("opacity-100");
-      modalPanel.classList.add(
-        "opacity-100",
-        "translate-y-0",
-        "sm:scale-100"
-      );
+      modalPanel.classList.add("opacity-100", "translate-y-0", "sm:scale-100");
     }, 10);
   };
 
   const closeModal = () => {
     modalBackdrop.classList.remove("opacity-100");
-    modalPanel.classList.remove(
-      "opacity-100",
-      "translate-y-0",
-      "sm:scale-100"
-    );
+    modalPanel.classList.remove("opacity-100", "translate-y-0", "sm:scale-100");
     modalBackdrop.classList.add("opacity-0");
     modalPanel.classList.add(
       "opacity-0",
@@ -144,8 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".explain-code-btn").forEach((button) => {
     button.addEventListener("click", async () => {
-      const codeElement =
-        button.previousElementSibling.querySelector("code");
+      const codeElement = button.previousElementSibling.querySelector("code");
       const codeText = codeElement.innerText;
 
       modalContent.innerHTML =
