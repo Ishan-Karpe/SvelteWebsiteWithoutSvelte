@@ -1,15 +1,9 @@
 async function generateGeminiContent(prompt) {
-  // Insert your Google AI API KEY BELOW, get at https://aistudio.google.com/app/apikey
-  const apiKey = "";
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  // API key is now securely stored on the server side
+  const apiUrl = '/api/generate';
 
   const payload = {
-    contents: [
-      {
-        role: "user",
-        parts: [{ text: prompt }],
-      },
-    ],
+    prompt: prompt
   };
 
   try {
